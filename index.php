@@ -1,3 +1,10 @@
+<?php include 'config.php';
+$sql = "SELECT * FROM users WHERE id = 1";
+$result = mysqli_query($con,$sql);
+$data = mysqli_fetch_array($result);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +31,9 @@
             </nav>
             
             <div class="header-text">
-                <p>CS Undergrad Student</p>
-                <h1>Hello, This is <span>Shuvo</span>
-                <br> studying at KUET</h1>
+                <p><?=$data['title']?></p>
+                <h1>Hello, This is <span><?=$data['name']?></span>
+                <br> studying at <span><?=$data['university']?></span></h1>
 
             </div>
         </div>
@@ -41,13 +48,8 @@
                 </div>
                 <div class="about-col-2">
                      <h1>About Me</h1>
-                     <p>Hey,I currently am a student of 3rd year ,1st semester at KUET
-                        in Computer Science Engineering.
-                       It's been quite boring to even handle these 4 sems.
-                       But I think this sem will give it back to me.
-                       Who knows this sem can say me that i'm the one who is boring.
-                       Let's hope for the best with all these projects.Binga! 
-
+                     <p>
+                     <?=$data['about']?>
                      </p>
                     
                      <div class="tab-titles">
@@ -88,7 +90,25 @@
         <div class="container">
             <h1 class="sub-title">My Services</h1>
             <div class="services-list">
-                <div>
+            <?php
+            $services_query = "SELECT * FROM services";
+            $services_result = mysqli_query($con, $services_query);
+
+            if ($services_result->num_rows > 0) {
+            while ($service_row = $services_result->fetch_assoc()) {
+            ?>
+            <div>
+            <i class="<?= $service_row['icon'] ?>"></i>
+            <h2><?= $service_row['title'] ?></h2>
+            <p><?= $service_row['details'] ?></p>
+            <a href="#">Learn more</a>
+            </div>
+            <?php
+        }
+    }
+?>
+
+                <!-- <div>
                     <i class="fa-solid fa-code"></i>
                     <h2>Web Design</h2>
                     <p>
@@ -120,19 +140,22 @@
                         
                     </p>
                     <a href="#">Learn more</a>
-                </div>
+                </div> -->
 
             </div>
         </div>
     </div>
+    
+
+
     <!-- --------------- portfolio ------------------- -->
-    <div id="portfolio">
+    <!-- <div id="portfolio">
         <div class="container">
             <h1 class="sub-title">My Work</h1>
             <div class="work-list">
 
                 <div class="work">
-                    <!--tangtadaang-->
+                  
 
                     <img src="images/boat.jpg">\
 
@@ -163,7 +186,43 @@
             </div>
             <a href="#" class="btn">See more</a>
         </div>
+    </div> -->
+   
+
+   
+    <div id="portfolio">
+    <div class="container">
+        <h1 class="sub-title">My Work</h1>
+        <div class="work-list">
+            <?php
+            $work_query = "SELECT * FROM work";
+            $work_result = mysqli_query($con, $work_query);
+
+            // Check if there are rows in the result set
+            if (mysqli_num_rows($work_result) > 0) {
+                // Loop through each row
+                while ($work_row = mysqli_fetch_assoc($work_result)) {
+                    ?>
+                    <div class="work">
+                        <img src="<?php echo $work_row['img']; ?>">
+                        <div class="layer"></div>
+                        <h3><?php echo $work_row['title']; ?></h3>
+                        <p><?php echo $work_row['details']; ?></p>
+                        <a href="#"><i class="fa-solid fa-link"></i></a>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+        </div>
+        <a href="#" class="btn">See more</a>
     </div>
+</div>
+
+<?php
+// Close the connection
+mysqli_close($con);
+?>
 
 
     <!--Contact-->
@@ -226,7 +285,7 @@
         var sidemeu=document.getElementById("sidemenu");
         function openmenu()
         {
-            sidemeu.style.rigth="0";
+            sidemeu.style.right="0";
         }
         function closemenu()
         {
