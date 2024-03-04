@@ -32,8 +32,8 @@ $data = mysqli_fetch_array($result);
             
             <div class="header-text">
                 <p><?=$data['title']?></p>
-                <h1>Hello, This is <span><?=$data['name']?></span>
-                <br> studying at <span><?=$data['university']?></span></h1>
+                <h1>Hello, This is <span>SHUVO</span>
+                <br> studying at <span>KUET</span></h1>
 
             </div>
         </div>
@@ -239,14 +239,19 @@ mysqli_close($con);
                         <a href="https://www.instagram.com/alh_shuvo/"><i class="fa-brands fa-instagram"></i></a>
                         <a href="https://www.instagram.com/alh_shuvo/"><i class="fa-brands fa-linkedin"></i></a>
                     </div>
-                    <a href="images/SQL Notes.pdf"download class="btn btn2">Download CV</a>
+                    <a href="images/SHUVO_CV.pdf"download class="btn btn2">Download CV</a>
                 </div>
                 <div class="contact-right">
                     <form>
-                        <input type="text" name="Name" placeholder="Your Name" required>
-                        <input type="email" name="email" placeholder="Your Email" required>
-                        <textarea name="Message"  rows="6" placeholder="Your Message"></textarea>
-                        <button type="submit" class ="btn btn2">Submit</button>
+                    <div class="contact-right">
+    <form action="save_message.php" method="post">
+        <input type="text" name="Name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="Message" rows="6" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn btn2">Submit</button>
+    </form>
+</div>
+
                     </form>
                     
                 </div>
